@@ -1,0 +1,18 @@
+---
+ObbyMaulPure:
+  import:
+    - Core
+  num-envs: 50
+  num-rollout-steps: 512
+  batch-size: 1024
+  remote-processor-pool-size: 4
+  num-eval-agent: 5
+  num-reference-rating-envs: 0
+  self-play-percent: 1.0
+  past-self-play-percent: 0.0
+  env-kwargs:
+    reset-params:
+      randomizeBuild: false
+      accountBuild: OBBY_MAUL_PURE
+      randomizeGear: true
+      randomizeFightType: false

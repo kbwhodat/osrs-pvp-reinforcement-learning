@@ -36,7 +36,8 @@ public class NhEnvironmentParams {
         MAXED,
         LMS_PURE,
         LMS_ZERKER,
-        LMS_MED;
+        LMS_MED,
+        OBBY_MAUL_PURE;
     }
 
     public enum FightType {

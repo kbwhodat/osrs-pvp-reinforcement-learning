@@ -43,6 +43,7 @@ public class NhEnvironmentDescriptor implements EnvironmentDescriptor<NhEnvironm
                     case LMS_PURE -> new NhLmsPureLoadout();
                     case LMS_ZERKER -> new NhLmsZerkLoadout();
                     case LMS_MED -> new NhLmsMedLoadout();
+                    case OBBY_MAUL_PURE -> new NhObbyMaulPureLoadout();
                 };
         if (envParams.isRandomizeGear()) {
             final String episodeId = envParams.getEpisodeId() != null
