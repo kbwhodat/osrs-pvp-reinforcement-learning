@@ -1344,7 +1344,7 @@ public class NhEnvironment implements AgentEnvironment {
                 // Special case - gmaul, use all specs
                 if (isMeleeSpecGraniteMaul()) {
                     final int specs = (int) (getSpecialPercentage()
-                            / getAgent().getCombatSpecial().getDrainAmount());
+                            / CombatSpecial.GRANITE_MAUL.getDrainAmount());
                     for (int i = 0; i < specs; i++) {
                         CombatSpecial.activate(getAgent());
                     }

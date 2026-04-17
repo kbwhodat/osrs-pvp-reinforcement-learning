@@ -1,27 +1,22 @@
 package com.github.naton1.rl.env.nh;
 
 import static com.elvarg.util.ItemIdentifiers.AMULET_OF_STRENGTH;
-import static com.elvarg.util.ItemIdentifiers.BERSERKER_NECKLACE;
-import static com.elvarg.util.ItemIdentifiers.CLIMBING_BOOTS;
 import static com.elvarg.util.ItemIdentifiers.COOKED_KARAMBWAN;
-import static com.elvarg.util.ItemIdentifiers.FIRE_CAPE;
 import static com.elvarg.util.ItemIdentifiers.IRON_PLATELEGS;
 import static com.elvarg.util.ItemIdentifiers.LEATHER_BODY;
 import static com.elvarg.util.ItemIdentifiers.LEATHER_CHAPS;
-import static com.elvarg.util.ItemIdentifiers.LEATHER_VAMBRACES;
-import static com.elvarg.util.ItemIdentifiers.MITHRIL_GLOVES;
 import static com.elvarg.util.ItemIdentifiers.MONKS_ROBE_TOP;
+import static com.elvarg.util.ItemIdentifiers.RUNE_2H_SWORD;
 import static com.elvarg.util.ItemIdentifiers.RUNE_KNIFE;
+import static com.elvarg.util.ItemIdentifiers.RUNE_SCIMITAR;
 import static com.elvarg.util.ItemIdentifiers.SHARK;
 import static com.elvarg.util.ItemIdentifiers.SUPER_STRENGTH_4_;
-import static com.elvarg.util.ItemIdentifiers.TZHAAR_KET_OM;
 
 import com.elvarg.game.content.PrayerHandler;
 import com.elvarg.game.model.MagicSpellbook;
-import com.elvarg.game.model.container.impl.Equipment;
 import com.github.naton1.rl.env.Loadout;
 
-public class NhObbyMaulPureLoadout extends DynamicNhLoadout {
+public class NhStrengthPureLoadout extends DynamicNhLoadout {
 
     @Override
     public int[] getRangedGear() {
@@ -30,35 +25,32 @@ public class NhObbyMaulPureLoadout extends DynamicNhLoadout {
             AMULET_OF_STRENGTH,
             LEATHER_CHAPS,
             LEATHER_BODY,
-            LEATHER_VAMBRACES,
-            FIRE_CAPE,
-            CLIMBING_BOOTS,
         };
     }
 
     @Override
     public int[] getMageGear() {
-        // Empty — obby maulers don't mage. This disables mage actions via action masking.
         return new int[] {};
     }
 
     @Override
     public int[] getMeleeGear() {
         return new int[] {
-            TZHAAR_KET_OM,
-            BERSERKER_NECKLACE,
+            RUNE_SCIMITAR,
+            AMULET_OF_STRENGTH,
             IRON_PLATELEGS,
             MONKS_ROBE_TOP,
-            MITHRIL_GLOVES,
-            FIRE_CAPE,
-            CLIMBING_BOOTS,
         };
     }
 
     @Override
     public int[] getMeleeSpecGear() {
-        // No spec weapon at 1 Attack.
-        return getMeleeGear();
+        return new int[] {
+            RUNE_2H_SWORD,
+            AMULET_OF_STRENGTH,
+            IRON_PLATELEGS,
+            MONKS_ROBE_TOP,
+        };
     }
 
     @Override
@@ -74,20 +66,20 @@ public class NhObbyMaulPureLoadout extends DynamicNhLoadout {
     @Override
     public PrayerHandler.PrayerData[] getMeleePrayers() {
         return new PrayerHandler.PrayerData[] {
-            PrayerHandler.PrayerData.ULTIMATE_STRENGTH,
+            PrayerHandler.PrayerData.SUPERHUMAN_STRENGTH,
         };
     }
 
     @Override
     public Loadout.CombatStats getCombatStats() {
         return Loadout.CombatStats.builder()
-                .attackLevel(1)
-                .strengthLevel(80)
+                .attackLevel(40)
+                .strengthLevel(70)
                 .defenceLevel(1)
-                .hitpointsLevel(70)
+                .hitpointsLevel(60)
                 .magicLevel(1)
-                .rangedLevel(55)
-                .prayerLevel(31)
+                .rangedLevel(40)
+                .prayerLevel(13)
                 .build();
     }
 
@@ -98,9 +90,7 @@ public class NhObbyMaulPureLoadout extends DynamicNhLoadout {
 
     @Override
     protected int[] getDefaultInventoryItems() {
-        // Realistic obby mauler inventory: super strength + karambwans for combo eating
         return new int[] {
-            SUPER_STRENGTH_4_,
             SUPER_STRENGTH_4_,
             COOKED_KARAMBWAN,
             COOKED_KARAMBWAN,
@@ -116,10 +106,6 @@ public class NhObbyMaulPureLoadout extends DynamicNhLoadout {
 
     @Override
     protected void applyRandomization(final RandomizerContext randomizerContext) {
-        // Minimal randomization — obby mauler gear is simple and cheap
-        // 20% chance to use amulet of strength on melee instead of berserker necklace
-        if (randomizerContext.getRandom().nextInt(5) == 0) {
-            randomizerContext.setMelee(Equipment.AMULET_SLOT, AMULET_OF_STRENGTH);
-        }
+        // Minimal randomization for simple strength pure
     }
 }

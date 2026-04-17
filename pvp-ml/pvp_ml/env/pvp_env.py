@@ -132,6 +132,8 @@ class PvpEnv(AsyncIoEnv[NDArray[np.float32], NDArray[np.int32]]):
         player_wasted_food_multiplier: Schedule[float] = ConstantSchedule(1.0),
         custom_reward_fn: Schedule[float] = ConstantSchedule(0.0),
         no_prayer_tick_reward: Schedule[float] = ConstantSchedule(0.0),
+        melee_ko_bonus: Schedule[float] = ConstantSchedule(0.0),
+        ranged_ko_penalty: Schedule[float] = ConstantSchedule(0.0),
         desync_tick_threshold: int = 2,
         action_mask_override: Schedule[NDArray[np.bool_]] | None = None,
         remote_environment_host: str = "localhost",
@@ -200,6 +202,8 @@ class PvpEnv(AsyncIoEnv[NDArray[np.float32], NDArray[np.int32]]):
         self._player_died_with_food_multiplier = player_died_with_food_multiplier
         self._player_wasted_food_multiplier = player_wasted_food_multiplier
         self._no_prayer_tick_reward = no_prayer_tick_reward
+        self._melee_ko_bonus = melee_ko_bonus
+        self._ranged_ko_penalty = ranged_ko_penalty
         self._custom_reward_fn = custom_reward_fn
         self._include_target_obs_in_critic = include_target_obs_in_critic
         self._training = training
@@ -1092,6 +1096,17 @@ class PvpEnv(AsyncIoEnv[NDArray[np.float32], NDArray[np.int32]]):
                     "Won fight",
                     "win",
                 )
+                melee_ko = self._melee_ko_bonus.value(
+                    self._episode_context.trained_rollouts
+                )
+                last_hit = response["meta"].get("lastAttackTypeHit") or response["meta"].get("attackTypeHit")
+                if melee_ko != 0 and last_hit == "MELEE":
+                    _add_reward(melee_ko, "Melee KO bonus", "melee_ko")
+                ranged_ko_pen = self._ranged_ko_penalty.value(
+                    self._episode_context.trained_rollouts
+                )
+                if ranged_ko_pen != 0 and last_hit == "RANGED":
+                    _add_reward(ranged_ko_pen, "Ranged KO penalty", "ranged_ko_penalty")
                 info["target_food_on_death"] = response["meta"][
                     "targetRemainingFoodScale"
                 ]

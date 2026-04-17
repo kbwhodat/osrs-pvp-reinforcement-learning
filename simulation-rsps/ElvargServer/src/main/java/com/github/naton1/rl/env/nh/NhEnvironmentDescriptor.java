@@ -34,6 +34,7 @@ public class NhEnvironmentDescriptor implements EnvironmentDescriptor<NhEnvironm
         if (envParams.isRandomizeBuild()) {
             accountBuild = getRandomAccountBuild(envParams);
         }
+        log.info("Loading loadout for accountBuild={}, randomizeBuild={}, randomBuildOptions={}, agent={}, target={}", accountBuild, envParams.isRandomizeBuild(), envParams.getRandomBuildOptions(), envParams.getAgent(), envParams.getTarget());
         final NhLoadout nhLoadout =
                 switch (accountBuild) {
                     case PURE -> new NhPureLoadout();
@@ -44,6 +45,13 @@ public class NhEnvironmentDescriptor implements EnvironmentDescriptor<NhEnvironm
                     case LMS_ZERKER -> new NhLmsZerkLoadout();
                     case LMS_MED -> new NhLmsMedLoadout();
                     case OBBY_MAUL_PURE -> new NhObbyMaulPureLoadout();
+                    case GMAUL_PURE -> new NhGmaulPureLoadout();
+                    case RANGE_PURE -> new NhRangePureLoadout();
+                    case STRENGTH_PURE -> new NhStrengthPureLoadout();
+                    case MAGE_PURE -> new NhMagePureLoadout();
+                    case RANGE_2H_HYBRID -> new NhRange2hHybridLoadout();
+                    case DDS_PURE -> new NhDdsPureLoadout();
+                    case OBBY_MAULER_MIRROR -> new NhObbyMaulerMirrorLoadout();
                 };
         if (envParams.isRandomizeGear()) {
             final String episodeId = envParams.getEpisodeId() != null

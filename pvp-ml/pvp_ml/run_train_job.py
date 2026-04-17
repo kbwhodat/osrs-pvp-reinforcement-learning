@@ -254,7 +254,10 @@ def propagate_logs(
         threads.append(thread)
     logger.info(f"Propagating logs for {files.keys()}")
     while any(t.is_alive() for t in threads):
-        log_message = log_queue.get(timeout=1)
+        try:
+            log_message = log_queue.get(timeout=1)
+        except queue.Empty:
+            continue
         if log_message:
             logger.info(log_message)
 

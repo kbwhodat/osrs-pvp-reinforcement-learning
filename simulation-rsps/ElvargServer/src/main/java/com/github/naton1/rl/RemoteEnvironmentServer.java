@@ -290,6 +290,7 @@ public class RemoteEnvironmentServer {
         private final double rangedLevelScale;
         private final double magicLevelScale;
         private final String attackTypeHit;
+        private final String lastAttackTypeHit;
         private final String attackTypeReceived;
         private final String playerPrayerType;
         private final String targetPrayerType;

@@ -21,7 +21,7 @@ import com.elvarg.game.model.MagicSpellbook;
 import com.elvarg.game.model.container.impl.Equipment;
 import com.github.naton1.rl.env.Loadout;
 
-public class NhObbyMaulPureLoadout extends DynamicNhLoadout {
+public class NhObbyMaulerMirrorLoadout extends DynamicNhLoadout {
 
     @Override
     public int[] getRangedGear() {
@@ -38,7 +38,6 @@ public class NhObbyMaulPureLoadout extends DynamicNhLoadout {
 
     @Override
     public int[] getMageGear() {
-        // Empty — obby maulers don't mage. This disables mage actions via action masking.
         return new int[] {};
     }
 
@@ -82,11 +81,11 @@ public class NhObbyMaulPureLoadout extends DynamicNhLoadout {
     public Loadout.CombatStats getCombatStats() {
         return Loadout.CombatStats.builder()
                 .attackLevel(1)
-                .strengthLevel(80)
+                .strengthLevel(99)
                 .defenceLevel(1)
-                .hitpointsLevel(70)
+                .hitpointsLevel(80)
                 .magicLevel(1)
-                .rangedLevel(55)
+                .rangedLevel(60)
                 .prayerLevel(31)
                 .build();
     }
@@ -98,7 +97,6 @@ public class NhObbyMaulPureLoadout extends DynamicNhLoadout {
 
     @Override
     protected int[] getDefaultInventoryItems() {
-        // Realistic obby mauler inventory: super strength + karambwans for combo eating
         return new int[] {
             SUPER_STRENGTH_4_,
             SUPER_STRENGTH_4_,
@@ -116,7 +114,6 @@ public class NhObbyMaulPureLoadout extends DynamicNhLoadout {
 
     @Override
     protected void applyRandomization(final RandomizerContext randomizerContext) {
-        // Minimal randomization — obby mauler gear is simple and cheap
         // 20% chance to use amulet of strength on melee instead of berserker necklace
         if (randomizerContext.getRandom().nextInt(5) == 0) {
             randomizerContext.setMelee(Equipment.AMULET_SLOT, AMULET_OF_STRENGTH);

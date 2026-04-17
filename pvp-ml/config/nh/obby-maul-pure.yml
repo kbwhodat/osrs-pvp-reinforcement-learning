@@ -10,9 +10,34 @@ ObbyMaulPure:
   num-reference-rating-envs: 0
   self-play-percent: 1.0
   past-self-play-percent: 0.0
+  # Boost melee damage reward to incentivize obby maul usage
+  damage-dealt-reward-scale: 0.5
+  damage-received-reward-scale: -0.25
+  # Reduce freeze/prayer rewards — obby maulers don't tribrid or prayer switch
+  target-frozen-tick-reward: 0.0
+  player-frozen-tick-reward: 0.0
+  no-prayer-tick-reward: 0.0
+  protected-correct-prayer-reward: 0.0
+  protected-wrong-prayer-reward: 0.0
+  attacked-correct-prayer-reward: 0.0
+  attacked-wrong-prayer-reward: 0.0
+  smite-damage-dealt-reward-multiplier: 0.0
+  smite-damage-received-reward-multiplier: 0.0
+  # Bonus reward for landing the killing blow with melee (obby maul KO)
+  melee-ko-bonus: 5.0
+  ranged-ko-penalty: -0.5
   env-kwargs:
     reset-params:
-      randomizeBuild: false
+      randomizeBuild: true
       accountBuild: OBBY_MAUL_PURE
       randomizeGear: true
       randomizeFightType: false
+      randomBuildOptions:
+        - OBBY_MAUL_PURE
+        - GMAUL_PURE
+        - RANGE_PURE
+        - STRENGTH_PURE
+        - MAGE_PURE
+        - RANGE_2H_HYBRID
+        - DDS_PURE
+        - OBBY_MAULER_MIRROR

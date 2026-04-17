@@ -101,6 +101,11 @@ public class RemoteEnvironmentPlayerBot extends PlayerBot {
         EventDispatcher.getGlobal().add(HitCalculatedEvent.class, this.hitCalculatedListener);
     }
 
+    @Override
+    protected boolean shouldLoadPresetOnLogin() {
+        return false;
+    }
+
     synchronized void queueMessage(RemoteEnvironmentServer.MessageContext messageContext) {
         if (this.messageContext != null) {
             // Shouldn't happen - let's make sure
@@ -262,6 +267,7 @@ public class RemoteEnvironmentPlayerBot extends PlayerBot {
                 .magicLevelScale(getSkillManager().getCurrentLevel(Skill.MAGIC)
                         / (double) getSkillManager().getMaxLevel(Skill.MAGIC))
                 .attackTypeHit(episodeContext.getAttackTypeHit())
+                .lastAttackTypeHit(episodeContext.getLastAttackTypeHit())
                 .attackTypeReceived(episodeContext.getAttackTypeReceived())
                 .playerPrayerType(episodeContext.getPlayerPrayerType())
                 .targetPrayerType(episodeContext.getTargetPrayerType())
@@ -541,6 +547,7 @@ public class RemoteEnvironmentPlayerBot extends PlayerBot {
         if (attacker == this) {
             episodeContext.setHitOffPrayerCorrectly(!isTargetPrayingCorrect);
             episodeContext.setAttackTypeHit(hit.getCombatType().toString());
+            episodeContext.setLastAttackTypeHit(hit.getCombatType().toString());
             episodeContext.setPlayerHitAttackSpeed(attackSpeed);
             if (targetPrayerType != null) {
                 episodeContext.setTargetPrayerType(targetPrayerType.toString());
@@ -891,6 +898,7 @@ public class RemoteEnvironmentPlayerBot extends PlayerBot {
         private Boolean hitOffPrayerCorrectly;
 
         private String attackTypeHit;
+        private String lastAttackTypeHit;
         private String attackTypeReceived;
 
         private String targetPrayerType;

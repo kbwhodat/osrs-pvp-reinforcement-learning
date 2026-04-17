@@ -162,7 +162,13 @@ public class PlayerBot extends Player {
 	public void onLogin() {
 		super.onLogin();
 
-		Presetables.load(this, this.getDefinition().getFighterPreset().getItemPreset());
+		if (shouldLoadPresetOnLogin()) {
+			Presetables.load(this, this.getDefinition().getFighterPreset().getItemPreset());
+		}
+	}
+
+	protected boolean shouldLoadPresetOnLogin() {
+		return true;
 	}
 
 	@Override

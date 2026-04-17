@@ -1,5 +1,6 @@
 package com.github.naton1.rl.env.nh;
 
+import java.util.ArrayList;
 import java.util.List;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -27,7 +28,7 @@ public class NhEnvironmentParams {
     private String agent = "";
     private String target = "";
 
-    private List<AccountBuild> randomBuildOptions = List.of(AccountBuild.PURE, AccountBuild.ZERKER, AccountBuild.MED);
+    private List<AccountBuild> randomBuildOptions = new ArrayList<>(List.of(AccountBuild.PURE, AccountBuild.ZERKER, AccountBuild.MED));
 
     public enum AccountBuild {
         PURE,
@@ -37,7 +38,14 @@ public class NhEnvironmentParams {
         LMS_PURE,
         LMS_ZERKER,
         LMS_MED,
-        OBBY_MAUL_PURE;
+        OBBY_MAUL_PURE,
+        GMAUL_PURE,
+        RANGE_PURE,
+        STRENGTH_PURE,
+        MAGE_PURE,
+        RANGE_2H_HYBRID,
+        DDS_PURE,
+        OBBY_MAULER_MIRROR;
     }
 
     public enum FightType {

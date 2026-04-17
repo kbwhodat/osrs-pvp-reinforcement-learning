@@ -1141,6 +1141,18 @@ def main(argv: list[str]) -> None:
         default=ConstantSchedule(0.0),
     )
     parser.add_argument(
+        "--melee-ko-bonus",
+        type=schedule,
+        help="Bonus reward for killing the opponent with a melee attack",
+        default=ConstantSchedule(0.0),
+    )
+    parser.add_argument(
+        "--ranged-ko-penalty",
+        type=schedule,
+        help="Penalty for killing the opponent with a ranged attack",
+        default=ConstantSchedule(0.0),
+    )
+    parser.add_argument(
         "--reward-on-hit-with-boost-scale",
         type=schedule,
         help="Reward on hit with boost scale",
@@ -1430,6 +1442,8 @@ def main(argv: list[str]) -> None:
         "player_died_with_food_multiplier"
     ] = args.player_died_with_food_multiplier
     env_kwargs["no_prayer_tick_reward"] = args.no_prayer_tick_reward
+    env_kwargs["melee_ko_bonus"] = args.melee_ko_bonus
+    env_kwargs["ranged_ko_penalty"] = args.ranged_ko_penalty
     env_kwargs["player_wasted_food_multiplier"] = args.player_wasted_food_multiplier
 
     policy_kwargs = args.policy_kwargs
